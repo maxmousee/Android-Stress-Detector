@@ -46,13 +46,8 @@ jobs:
           environment:
             TERM: dumb
       - run:
-          name: Download Android NDK
-          command: echo y | cd $ANDROID_HOME; sudo curl -L -o ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip
-          environment:
-            TERM: dumb
-      - run:
           name: Install Android NDK
-          command: echo y | cd $ANDROID_HOME; sudo unzip -o -q ndk.zip; ANDROID_NDK="$ANDROID_HOME/android-ndk-r18b"; echo 'export ANDROID_NDK=$ANDROID_HOME/android-ndk-r18b' >> $BASH_ENV echo 'export ANDROID_NDK_HOME=$ANDROID_HOME/android-ndk-r18b/' >> $BASH_ENV; ls;
+          command: echo y | $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle;18.1.5063045"
           environment:
             TERM: dumb
       - run:
