@@ -52,7 +52,7 @@ jobs:
             TERM: dumb
       - run:
           name: Install Android NDK
-          command: echo y | cd $ANDROID_HOME; unzip -o -q ndk.zip; mv android-ndk-r18b ndk-bundle; ANDROID_NDK="$ANDROID_HOME/android-ndk-r18b"; echo 'export ANDROID_NDK=$ANDROID_HOME/android-ndk-r18b' >> $BASH_ENV echo 'export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle/' >> $BASH_ENV"
+          command: echo y | cd $ANDROID_HOME; unzip -o -q ndk.zip; mv android-ndk-r18b ndk-bundle; ANDROID_NDK="$ANDROID_HOME/android-ndk-r18b"; echo 'export ANDROID_NDK=$ANDROID_HOME/android-ndk-r18b' >> $BASH_ENV echo 'export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle/' >> $BASH_ENV
           environment:
             TERM: dumb
       - run:
