@@ -10,8 +10,7 @@ class RealTime : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_time)
 
-        // Example of a call to a native method
-        freq_tv.text = "done"
+        freq_tv.text = "Done"
     }
 
     /**
@@ -22,7 +21,7 @@ class RealTime : AppCompatActivity() {
 
     companion object {
 
-        // Used to load the 'native-lib' library on application startup.
+        // Used to load the 'vsd' native cpp library on application startup.
         init {
             System.loadLibrary("vsd")
         }
