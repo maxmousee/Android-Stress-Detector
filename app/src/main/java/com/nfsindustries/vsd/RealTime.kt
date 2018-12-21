@@ -14,6 +14,8 @@ class RealTime : AppCompatActivity() {
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
 
+    var audioProcessor = AudioProcessor()
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionToRecordAccepted =
@@ -33,19 +35,5 @@ class RealTime : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
         freq_tv.text = "Done"
-    }
-
-    /**
-     * A native method that is implemented by the 'vsd' native library,
-     * which is packaged with this application.
-     */
-    external fun processAudio(array: Array<Double>): Double
-
-    companion object {
-
-        // Used to load the 'vsd' native cpp library on application startup.
-        init {
-            System.loadLibrary("vsd")
-        }
     }
 }
