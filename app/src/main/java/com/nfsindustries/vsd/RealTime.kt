@@ -46,4 +46,14 @@ class RealTime : AppCompatActivity() {
 
         freq_tv.text = "Done"
     }
+
+    override fun onResume() {
+        super.onResume()
+        audioProcessor.startCapturingBuffer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        audioProcessor.stopCapturingBuffer()
+    }
 }
