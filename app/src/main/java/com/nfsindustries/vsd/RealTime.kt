@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_real_time.*
 
 class RealTime : AppCompatActivity() {
@@ -24,7 +25,16 @@ class RealTime : AppCompatActivity() {
                 } else {
                     false
                 }
-        if (!permissionToRecordAccepted) finish()
+        if (!permissionToRecordAccepted) {
+            displayPermissionDeniedToast()
+            finish()
+        }
+    }
+
+    fun displayPermissionDeniedToast() {
+        val duration = Toast.LENGTH_LONG
+        val toast = Toast.makeText(applicationContext, "Please, allow VSD to record audio. This is required ;)", duration)
+        toast.show()
     }
 
 
