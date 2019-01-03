@@ -4,6 +4,7 @@ import android.media.AudioFormat
 import android.media.MediaRecorder
 import android.media.AudioRecord
 import android.util.Log
+import java.nio.ByteBuffer
 
 class AudioProcessor() {
 
@@ -16,7 +17,7 @@ class AudioProcessor() {
     private val recorder = AudioRecord(MediaRecorder.AudioSource.MIC, RECORDER_SAMPLERATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING, RECORDER_SAMPLERATE)
 
     fun readAudioBuffer() {
-        var audioData = ByteArray(RECORDER_SAMPLERATE)
+        val audioData = ByteArray(RECORDER_SAMPLERATE)
         while (isRecording) {
             // gets the voice output from microphone to byte format
             recorder.read(audioData, 0, RECORDER_SAMPLERATE)
@@ -32,6 +33,14 @@ class AudioProcessor() {
     fun stopCapturingBuffer() {
         recorder.stop()
         isRecording = false
+    }
+
+    fun isRecording(): Boolean {
+        return isRecording
+    }
+
+    fun toDouble(bytes: ByteArray): Double {
+        return ByteBuffer.wrap(bytes).double
     }
 
     /**
