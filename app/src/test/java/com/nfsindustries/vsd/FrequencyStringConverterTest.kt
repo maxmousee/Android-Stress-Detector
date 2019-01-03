@@ -54,4 +54,52 @@ class FrequencyStringConverterTest {
         val text = converter.convertStressCoeficientString(12.99);
         assertEquals("Marginal Stress", text)
     }
+
+    @Test
+    fun convertStressCoeficientEmojiNoStressLow() {
+        val text = converter.convertStressCoeficientEmoji(8.0);
+        assertEquals("\uD83D\uDE00", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiNoStressHigh() {
+        val text = converter.convertStressCoeficientEmoji(12.0);
+        assertEquals("\uD83D\uDE00", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiStressLow() {
+        val text = converter.convertStressCoeficientEmoji(6.99);
+        assertEquals("\uD83D\uDE21", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiStressHigh() {
+        val text = converter.convertStressCoeficientEmoji(13.0);
+        assertEquals("\uD83D\uDE21", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiMarginalStressLow() {
+        val text = converter.convertStressCoeficientEmoji(7.0);
+        assertEquals("\uD83D\uDE10", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiMarginalStressLow2() {
+        val text = converter.convertStressCoeficientEmoji(7.99);
+        assertEquals("\uD83D\uDE10", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiMarginalStressHigh() {
+        val text = converter.convertStressCoeficientEmoji(12.01);
+        assertEquals("\uD83D\uDE10", text)
+    }
+
+    @Test
+    fun convertStressCoeficientEmojiMarginalStressHigh2() {
+        val text = converter.convertStressCoeficientEmoji(12.99);
+        assertEquals("\uD83D\uDE10", text)
+    }
 }
