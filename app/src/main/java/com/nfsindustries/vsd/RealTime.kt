@@ -15,6 +15,9 @@ class RealTime : AppCompatActivity() {
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
 
+    private val frequencyStringConverter = FrequencyStringConverter()
+    private val stressCoeficient = 10.0
+
     var audioProcessor = AudioProcessor()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -44,8 +47,10 @@ class RealTime : AppCompatActivity() {
         setContentView(R.layout.activity_real_time)
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-
-        freq_tv.text = "Done"
+        val stressStringPlaceholder = frequencyStringConverter.convertStressCoeficientString(stressCoeficient) + "\n" +
+                frequencyStringConverter.convertStressCoeficientEmoji(stressCoeficient)
+        freq_tv.text = stressStringPlaceholder
+        freq_tv.setBackgroundColor(resources.getColor(R.color.colorNoStress))
     }
 
     override fun onResume() {
