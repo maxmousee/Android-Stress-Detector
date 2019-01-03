@@ -20,11 +20,12 @@ class RealTime : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionToRecordAccepted =
-                if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED
-                } else {
-                    false
-                }
+                if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) { grantResults[0] == PackageManager.PERMISSION_GRANTED }
+                else { false }
+        checkPermissionDenied()
+    }
+
+    fun checkPermissionDenied() {
         if (!permissionToRecordAccepted) {
             displayPermissionDeniedToast()
             finish()
