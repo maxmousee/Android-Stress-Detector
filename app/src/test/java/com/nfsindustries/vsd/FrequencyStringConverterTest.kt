@@ -102,4 +102,10 @@ class FrequencyStringConverterTest {
         val text = converter.convertStressCoeficientEmoji(12.99);
         assertEquals("\uD83D\uDE10", text)
     }
+
+    @Test
+    fun convertStressCoeficientFormattedStringStressHigh() {
+        val text = converter.convertStressCoeficientFormattedString(13.0);
+        assertEquals("Stress\n\uD83D\uDE21", text)
+    }
 }

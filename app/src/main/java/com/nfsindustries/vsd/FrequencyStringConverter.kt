@@ -25,4 +25,8 @@ class FrequencyStringConverter {
             return "No Stress"
         }
     }
+
+    fun convertStressCoeficientFormattedString(frequency: Double): String {
+        return convertStressCoeficientString(frequency) + "\n" + convertStressCoeficientEmoji(frequency)
+    }
 }

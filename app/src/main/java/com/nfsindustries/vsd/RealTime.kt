@@ -41,16 +41,25 @@ class RealTime : AppCompatActivity() {
         toast.show()
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_time)
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-        val stressStringPlaceholder = frequencyStringConverter.convertStressCoeficientString(stressCoeficient) + "\n" +
-                frequencyStringConverter.convertStressCoeficientEmoji(stressCoeficient)
-        freq_tv.text = stressStringPlaceholder
-        freq_tv.setBackgroundColor(resources.getColor(R.color.colorNoStress))
+        freq_tv.text = frequencyStringConverter.convertStressCoeficientFormattedString(stressCoeficient)
+        setTextViewBackgroundColor(stressCoeficient)
+    }
+
+    fun setTextViewBackgroundColor(frequency: Double) {
+        if(frequency < 7.0 || frequency >= 13.0) {
+            freq_tv.setBackgroundColor(resources.getColor(R.color.colorStress))
+        } else if (frequency >= 7.0 && frequency < 8.0) {
+            freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
+        } else if (frequency > 12.0 && frequency < 13.0) {
+            freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
+        } else {
+            freq_tv.setBackgroundColor(resources.getColor(R.color.colorNoStress))
+        }
     }
 
     override fun onResume() {
