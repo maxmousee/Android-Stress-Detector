@@ -1,19 +1,23 @@
 package com.nfsindustries.vsd
 
 import android.os.AsyncTask
+import android.widget.TextView
 
-class AudioProcessorRunner : AsyncTask<Array<Double>, Int, Long>() {
+class AudioProcessorRunner(textView: TextView) : AsyncTask<Array<Double>, Int, Double>() {
 
-    var audioProcessor = AudioProcessor()
-    private var stressCoeficient = 10.0
+    private val frequencyStringConverter = FrequencyStringConverter()
+    private val vsd = VSDNative()
+    private var stressCoeficient = 0.0
+    private var textView = textView
 
-    override fun doInBackground(vararg params: Array<Double>?): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun doInBackground(vararg params: Array<Double>): Double {
+        stressCoeficient = vsd.processAudio(params.get(0))
+        return stressCoeficient
     }
 
-    override fun onPostExecute(result: Long?) {
+    override fun onPostExecute(result: Double?) {
         super.onPostExecute(result)
-        //Update UI
+        textView.text = "Done"
     }
 
 }
