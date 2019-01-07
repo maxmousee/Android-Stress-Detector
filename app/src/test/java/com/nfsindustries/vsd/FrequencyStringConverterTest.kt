@@ -106,6 +106,6 @@ class FrequencyStringConverterTest {
     @Test
     fun convertStressCoeficientFormattedStringStressHigh() {
         val text = converter.convertStressFrequencyFormattedString(13.0);
-        assertEquals("Stress\n\uD83D\uDE21", text)
+        assertEquals("13.0 Hz\nStress\n\uD83D\uDE21", text)
     }
 }
