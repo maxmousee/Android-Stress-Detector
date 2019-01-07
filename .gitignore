@@ -69,3 +69,4 @@ fastlane/readme.md
 app/.DS_Store
 app/src/.DS_Store
 gradle/.DS_Store
+.idea/misc.xml

@@ -46,7 +46,7 @@ class RealTime : AppCompatActivity() {
         setContentView(R.layout.activity_real_time)
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-        freq_tv.text = frequencyStringConverter.convertStressCoeficientFormattedString(stressCoeficient)
+        freq_tv.text = frequencyStringConverter.convertStressFrequencyFormattedString(stressCoeficient)
         setTextViewBackgroundColor(stressCoeficient)
     }
 

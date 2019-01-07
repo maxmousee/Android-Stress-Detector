@@ -2,7 +2,7 @@ package com.nfsindustries.vsd
 
 class FrequencyStringConverter {
 
-    fun convertStressCoeficientEmoji(frequency: Double): String {
+    fun convertStressFrequencyEmoji(frequency: Double): String {
         if(frequency < 7.0 || frequency >= 13.0) {
             return "\uD83D\uDE21"
         } else if (frequency >= 7.0 && frequency < 8.0) {
@@ -14,7 +14,7 @@ class FrequencyStringConverter {
         }
     }
 
-    fun convertStressCoeficientString(frequency: Double): String {
+    fun convertStressFrequencyString(frequency: Double): String {
         if(frequency < 7.0 || frequency >= 13.0) {
             return "Stress"
         } else if (frequency >= 7.0 && frequency < 8.0) {
@@ -26,7 +26,8 @@ class FrequencyStringConverter {
         }
     }
 
-    fun convertStressCoeficientFormattedString(frequency: Double): String {
-        return convertStressCoeficientString(frequency) + "\n" + convertStressCoeficientEmoji(frequency)
+    fun convertStressFrequencyFormattedString(frequency: Double): String {
+        return frequency.toString() + " Hz\n" + convertStressFrequencyString(frequency) + "\n" +
+                convertStressFrequencyEmoji(frequency)
     }
 }
