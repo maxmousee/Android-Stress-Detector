@@ -19,13 +19,13 @@ class AudioProcessor() : Runnable {
     private var isRecording = false
     private val recorder = AudioRecord(MediaRecorder.AudioSource.MIC, RECORDER_SAMPLE_RATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING, RECORDER_SAMPLE_RATE)
     private val frequencyStringConverter = FrequencyStringConverter()
-    private val vsd = VSDNative()
+    private val vsd = VSDJNI()
     private var stressFrequency = 0.0
 
     private val mHandler: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(inputMessage: Message) {
             if (Looper.getMainLooper().equals(Looper.myLooper())) {
-                Log.d(LOG_TAG, "HI")
+//                Log.d(LOG_TAG, "HI")
             }
         }
     }
@@ -33,7 +33,7 @@ class AudioProcessor() : Runnable {
     override fun run() {
         while (isRecording) {
             readAudioBuffer()
-            mHandler.sendEmptyMessage(0)
+//            mHandler.sendEmptyMessage(0)
         }
     }
 
@@ -47,9 +47,8 @@ class AudioProcessor() : Runnable {
             audioDoubleArray.set(index, value.toDouble())
             index++
         }
-        Log.d(LOG_TAG, Arrays.deepToString(audioDoubleArray.toTypedArray()))
-//        stressFrequency = vsd.processAudio(audioDoubleArray.toTypedArray())
-        Log.d(LOG_TAG + " FREQUENCY", stressFrequency.toString())
+        stressFrequency = vsd.processAudio(audioDoubleArray)
+        Log.d(LOG_TAG, stressFrequency.toString() + " Hz")
     }
 
     fun startCapturingBuffer() {

@@ -12,7 +12,7 @@ extern "C" {
  * Method:    processAudio
  * Signature: ([D)D
  */
-JNIEXPORT jdouble JNICALL Java_VSDJNI_processAudio
+JNIEXPORT jdouble JNICALL Java_com_nfsindustries_vsd_VSDJNI_processAudio
   (JNIEnv *, jobject, jdoubleArray);
 
 #ifdef __cplusplus
