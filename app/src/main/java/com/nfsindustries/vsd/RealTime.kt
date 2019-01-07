@@ -65,7 +65,10 @@ class RealTime : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        audioProcessor.startCapturingBuffer()
+        if(permissionToRecordAccepted) {
+            audioProcessor.startCapturingBuffer()
+            audioProcessor.execute()
+        }
     }
 
     override fun onPause() {
