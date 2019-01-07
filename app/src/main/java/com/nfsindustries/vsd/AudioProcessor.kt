@@ -10,7 +10,6 @@ import android.os.Looper
 import android.os.Message
 import java.util.*
 
-const val LOG_TAG = "VSD"
 const val RECORDER_SAMPLE_RATE = 8000
 const val RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO
 const val RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_FLOAT

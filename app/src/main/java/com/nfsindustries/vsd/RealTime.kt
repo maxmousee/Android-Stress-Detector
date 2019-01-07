@@ -8,8 +8,6 @@ import android.support.v4.app.ActivityCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_real_time.*
 
-const val REQUEST_RECORD_AUDIO_PERMISSION = 200
-
 class RealTime : AppCompatActivity() {
 
     // Requesting permission to RECORD_AUDIO
@@ -51,11 +49,11 @@ class RealTime : AppCompatActivity() {
     }
 
     fun setTextViewBackgroundColor(frequency: Double) {
-        if(frequency < 7.0 || frequency >= 13.0) {
+        if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
             freq_tv.setBackgroundColor(resources.getColor(R.color.colorStress))
-        } else if (frequency >= 7.0 && frequency < 8.0) {
+        } else if (frequency >= MARGINAL_STRESS_LOWER_LIMIT && frequency < STRESS_LOWER_LIMIT) {
             freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
-        } else if (frequency > 12.0 && frequency < 13.0) {
+        } else if (frequency > MARGINAL_STRESS_UPPER_LIMIT && frequency < STRESS_UPPER_LIMIT) {
             freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
         } else {
             freq_tv.setBackgroundColor(resources.getColor(R.color.colorNoStress))
