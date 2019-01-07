@@ -8,15 +8,16 @@ import android.support.v4.app.ActivityCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_real_time.*
 
+const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+
 class RealTime : AppCompatActivity() {
-    private val REQUEST_RECORD_AUDIO_PERMISSION = 200
 
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
 
     private val frequencyStringConverter = FrequencyStringConverter()
-    private val stressCoeficient = 10.0
+    private val stressFrequency = 10.0
 
     var audioProcessor = AudioProcessor()
 
@@ -46,8 +47,8 @@ class RealTime : AppCompatActivity() {
         setContentView(R.layout.activity_real_time)
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-        freq_tv.text = frequencyStringConverter.convertStressFrequencyFormattedString(stressCoeficient)
-        setTextViewBackgroundColor(stressCoeficient)
+        freq_tv.text = frequencyStringConverter.convertStressFrequencyFormattedString(stressFrequency)
+        setTextViewBackgroundColor(stressFrequency)
     }
 
     fun setTextViewBackgroundColor(frequency: Double) {

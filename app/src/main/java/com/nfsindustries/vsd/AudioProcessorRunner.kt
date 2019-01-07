@@ -7,12 +7,12 @@ class AudioProcessorRunner(textView: TextView) : AsyncTask<Array<Double>, Int, D
 
     private val frequencyStringConverter = FrequencyStringConverter()
     private val vsd = VSDNative()
-    private var stressCoeficient = 0.0
+    private var stressFrequency = 0.0
     private var textView = textView
 
     override fun doInBackground(vararg params: Array<Double>): Double {
-        stressCoeficient = vsd.processAudio(params.get(0))
-        return stressCoeficient
+        stressFrequency = vsd.processAudio(params.get(0))
+        return stressFrequency
     }
 
     override fun onPostExecute(result: Double?) {
