@@ -4,37 +4,52 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.AudioRecord.READ_BLOCKING
 import android.media.MediaRecorder
-import android.os.AsyncTask
+import android.os.Handler
 import android.util.Log
-import java.nio.ByteBuffer
+import android.os.Looper
+import android.os.Message
+import java.util.*
 
 const val LOG_TAG = "VSD"
 const val RECORDER_SAMPLE_RATE = 8000
 const val RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO
 const val RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_FLOAT
 
-class AudioProcessor() : AsyncTask<Void, Int, Double>() {
+class AudioProcessor() : Runnable {
     private var isRecording = false
     private val recorder = AudioRecord(MediaRecorder.AudioSource.MIC, RECORDER_SAMPLE_RATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING, RECORDER_SAMPLE_RATE)
     private val frequencyStringConverter = FrequencyStringConverter()
     private val vsd = VSDNative()
     private var stressFrequency = 0.0
 
-    override fun doInBackground(vararg params: Void): Double {
-        readAudioBuffer()
-//        stressFrequency = vsd.processAudio(params.get(0))
-        return stressFrequency
+    private val mHandler: Handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(inputMessage: Message) {
+            if (Looper.getMainLooper().equals(Looper.myLooper())) {
+                Log.d(LOG_TAG, "HI")
+            }
+        }
     }
 
-    override fun onPostExecute(result: Double?) {
-        super.onPostExecute(result)
+    override fun run() {
+        while (isRecording) {
+            readAudioBuffer()
+            mHandler.sendEmptyMessage(0)
+        }
     }
 
     fun readAudioBuffer() {
         var audioData = FloatArray(RECORDER_SAMPLE_RATE)
         // gets the voice output from microphone to byte format
         recorder.read(audioData, 0, RECORDER_SAMPLE_RATE, READ_BLOCKING)
-        Log.d(LOG_TAG, audioData.get(0).toString())
+        var audioDoubleArray = DoubleArray(RECORDER_SAMPLE_RATE)
+        var index = 0
+        for (value in audioData) {
+            audioDoubleArray.set(index, value.toDouble())
+            index++
+        }
+        Log.d(LOG_TAG, Arrays.deepToString(audioDoubleArray.toTypedArray()))
+//        stressFrequency = vsd.processAudio(audioDoubleArray.toTypedArray())
+        Log.d(LOG_TAG + " FREQUENCY", stressFrequency.toString())
     }
 
     fun startCapturingBuffer() {
@@ -49,9 +64,5 @@ class AudioProcessor() : AsyncTask<Void, Int, Double>() {
 
     fun isRecording(): Boolean {
         return isRecording
-    }
-
-    fun toDouble(bytes: ByteArray): Double {
-        return ByteBuffer.wrap(bytes).double
     }
 }
