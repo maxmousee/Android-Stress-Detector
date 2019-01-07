@@ -8,103 +8,103 @@ class FrequencyStringConverterTest {
     val converter = FrequencyStringConverter()
 
     @Test
-    fun convertStressCoeficientStringNoStressLow() {
+    fun convertStressFrequencyStringNoStressLow() {
         val text = converter.convertStressFrequencyString(8.0);
         assertEquals("No Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringNoStressHigh() {
+    fun convertStressFrequencyStringNoStressHigh() {
         val text = converter.convertStressFrequencyString(12.0);
         assertEquals("No Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringStressLow() {
+    fun convertStressFrequencyStringStressLow() {
         val text = converter.convertStressFrequencyString(6.99);
         assertEquals("Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringStressHigh() {
+    fun convertStressFrequencyStringStressHigh() {
         val text = converter.convertStressFrequencyString(13.0);
         assertEquals("Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringMarginalStressLow() {
+    fun convertStressFrequencyStringMarginalStressLow() {
         val text = converter.convertStressFrequencyString(7.0);
         assertEquals("Marginal Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringMarginalStressLow2() {
+    fun convertStressFrequencyStringMarginalStressLow2() {
         val text = converter.convertStressFrequencyString(7.99);
         assertEquals("Marginal Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringMarginalStressHigh() {
+    fun convertStressFrequencyStringMarginalStressHigh() {
         val text = converter.convertStressFrequencyString(12.01);
         assertEquals("Marginal Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientStringMarginalStressHigh2() {
+    fun convertStressFrequencyStringMarginalStressHigh2() {
         val text = converter.convertStressFrequencyString(12.99);
         assertEquals("Marginal Stress", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiNoStressLow() {
+    fun convertStressFrequencyEmojiNoStressLow() {
         val text = converter.convertStressFrequencyEmoji(8.0);
         assertEquals("\uD83D\uDE00", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiNoStressHigh() {
+    fun convertStressFrequencyEmojiNoStressHigh() {
         val text = converter.convertStressFrequencyEmoji(12.0);
         assertEquals("\uD83D\uDE00", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiStressLow() {
+    fun convertStressFrequencyEmojiStressLow() {
         val text = converter.convertStressFrequencyEmoji(6.99);
         assertEquals("\uD83D\uDE21", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiStressHigh() {
+    fun convertStressFrequencyEmojiStressHigh() {
         val text = converter.convertStressFrequencyEmoji(13.0);
         assertEquals("\uD83D\uDE21", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiMarginalStressLow() {
+    fun convertStressFrequencyEmojiMarginalStressLow() {
         val text = converter.convertStressFrequencyEmoji(7.0);
         assertEquals("\uD83D\uDE10", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiMarginalStressLow2() {
+    fun convertStressFrequencyEmojiMarginalStressLow2() {
         val text = converter.convertStressFrequencyEmoji(7.99);
         assertEquals("\uD83D\uDE10", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiMarginalStressHigh() {
+    fun convertStressFrequencyEmojiMarginalStressHigh() {
         val text = converter.convertStressFrequencyEmoji(12.01);
         assertEquals("\uD83D\uDE10", text)
     }
 
     @Test
-    fun convertStressCoeficientEmojiMarginalStressHigh2() {
+    fun convertStressFrequencyEmojiMarginalStressHigh2() {
         val text = converter.convertStressFrequencyEmoji(12.99);
         assertEquals("\uD83D\uDE10", text)
     }
 
     @Test
-    fun convertStressCoeficientFormattedStringStressHigh() {
+    fun convertStressFrequencyFormattedStringStressHigh() {
         val text = converter.convertStressFrequencyFormattedString(13.0);
         assertEquals("13.0 Hz\nStress\n\uD83D\uDE21", text)
     }
