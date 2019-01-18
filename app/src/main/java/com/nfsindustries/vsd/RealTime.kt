@@ -1,6 +1,7 @@
 package com.nfsindustries.vsd
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +17,6 @@ class RealTime : AppCompatActivity() {
 
     private val frequencyStringConverter = FrequencyStringConverter()
     private val stressFrequency = 10.0
-    private var audioProcessor = AudioProcessor()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -62,8 +62,9 @@ class RealTime : AppCompatActivity() {
 
     fun startListening() {
         if(permissionToRecordAccepted) {
-            audioProcessor.startCapturingBuffer()
-            audioProcessor.run()
+            Intent(this, AudioProcessorService::class.java).also { intent ->
+                startService(intent)
+            }
         }
     }
 
@@ -74,6 +75,8 @@ class RealTime : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        audioProcessor.stopCapturingBuffer()
+        Intent(this, AudioProcessorService::class.java).also { intent ->
+            stopService(intent)
+        }
     }
 }
