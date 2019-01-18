@@ -22,12 +22,12 @@ jobs:
             TERM: dumb
       - run:
           name: Android SDK Build-tools
-          command: if [ ! -d "/usr/local/android-sdk-linux/build-tools/28.0.0" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-28.0.0"; fi
+          command: if [ ! -d "/usr/local/android-sdk-linux/build-tools/28.0.3" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-28.0.3"; fi
           environment:
             TERM: dumb
       - run:
           name: Android Support Repository
-          command: if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/28.0.0" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
+          command: if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/47.0.0" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
           environment:
             TERM: dumb
       - run:
@@ -42,7 +42,7 @@ jobs:
             TERM: dumb
       - run:
           name: Install Android SDK build tools
-          command: echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.0"
+          command: echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;28.0.3"
           environment:
             TERM: dumb
       - run:
