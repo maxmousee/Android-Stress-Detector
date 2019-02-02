@@ -2,27 +2,33 @@ package com.nfsindustries.vsd
 
 class FrequencyStringConverter {
 
-    fun convertStressFrequencyEmoji(frequency: Double): String {
+    private fun getStressStatus(frequency: Double): StressStatus{
         if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
-            return "\uD83D\uDE21"
+            return StressStatus.STRESS
         } else if (frequency >= MARGINAL_STRESS_LOWER_LIMIT && frequency < STRESS_LOWER_LIMIT) {
-            return "\uD83D\uDE10"
+            return StressStatus.MARGINAL_STRESS
         } else if (frequency > MARGINAL_STRESS_UPPER_LIMIT && frequency < STRESS_UPPER_LIMIT) {
-            return "\uD83D\uDE10"
+            return StressStatus.MARGINAL_STRESS
         } else {
-            return "\uD83D\uDE00"
+            return StressStatus.NO_STRESS
+        }
+    }
+
+    fun convertStressFrequencyEmoji(frequency: Double): String {
+        val stressStatus = getStressStatus(frequency)
+        when (stressStatus) {
+            StressStatus.STRESS -> return "\uD83D\uDE21"
+            StressStatus.MARGINAL_STRESS -> return "\uD83D\uDE10"
+            else -> return "\uD83D\uDE00"
         }
     }
 
     fun convertStressFrequencyString(frequency: Double): String {
-        if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
-            return STRESS_STRING
-        } else if (frequency >= MARGINAL_STRESS_LOWER_LIMIT && frequency < STRESS_LOWER_LIMIT) {
-            return MARGINAL_STRESS_STRING
-        } else if (frequency > MARGINAL_STRESS_UPPER_LIMIT && frequency < STRESS_UPPER_LIMIT) {
-            return MARGINAL_STRESS_STRING
-        } else {
-            return NO_STRESS_STRING
+        val stressStatus = getStressStatus(frequency)
+        when (stressStatus) {
+            StressStatus.STRESS -> return STRESS_STRING
+            StressStatus.MARGINAL_STRESS -> return MARGINAL_STRESS_STRING
+            else -> return NO_STRESS_STRING
         }
     }
 

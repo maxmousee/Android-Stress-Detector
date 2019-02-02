@@ -26,7 +26,7 @@ class RealTime : AppCompatActivity() {
         checkPermissionDenied()
     }
 
-    fun checkPermissionDenied() {
+    private fun checkPermissionDenied() {
         if (!permissionToRecordAccepted) {
             displayPermissionDeniedToast()
             finish()
@@ -60,7 +60,7 @@ class RealTime : AppCompatActivity() {
         }
     }
 
-    fun startListening() {
+    private fun startListening() {
         if(permissionToRecordAccepted) {
             Intent(this, AudioProcessorService::class.java).also { intent ->
                 startService(intent)
