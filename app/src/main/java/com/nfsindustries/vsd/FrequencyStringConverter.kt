@@ -16,13 +16,13 @@ class FrequencyStringConverter {
 
     fun convertStressFrequencyString(frequency: Double): String {
         if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
-            return "Stress"
+            return STRESS_STRING
         } else if (frequency >= MARGINAL_STRESS_LOWER_LIMIT && frequency < STRESS_LOWER_LIMIT) {
-            return "Marginal Stress"
+            return MARGINAL_STRESS_STRING
         } else if (frequency > MARGINAL_STRESS_UPPER_LIMIT && frequency < STRESS_UPPER_LIMIT) {
-            return "Marginal Stress"
+            return MARGINAL_STRESS_STRING
         } else {
-            return "No Stress"
+            return NO_STRESS_STRING
         }
     }
 
