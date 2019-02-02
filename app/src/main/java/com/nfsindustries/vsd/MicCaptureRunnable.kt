@@ -6,7 +6,7 @@ import android.util.Log
 
 class MicCaptureRunnable() : Runnable {
 
-    private val frequencyStringConverter = FrequencyStringConverter()
+    private val frequencyStringConverter = FrequencyConverter()
     private var audioDoubleArray = DoubleArray(RECORDER_SAMPLE_RATE)
     private var audioData = FloatArray(RECORDER_SAMPLE_RATE)
     private val recorder = AudioRecord(MediaRecorder.AudioSource.MIC, RECORDER_SAMPLE_RATE, RECORDER_CHANNELS, RECORDER_AUDIO_ENCODING, RECORDER_SAMPLE_RATE)

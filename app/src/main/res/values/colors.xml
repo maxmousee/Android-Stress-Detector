@@ -4,7 +4,4 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorNoStress">#00FF00</color>
-    <color name="colorStress">#FF0000</color>
-    <color name="colorMarginalStress">#ff7f00</color>
 </resources>

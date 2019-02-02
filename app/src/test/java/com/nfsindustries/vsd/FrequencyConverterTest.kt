@@ -4,8 +4,8 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class FrequencyStringConverterTest {
-    val converter = FrequencyStringConverter()
+class FrequencyConverterTest {
+    private val converter = FrequencyConverter()
 
     @Test
     fun convertStressFrequencyStringNoStressLow() {
@@ -107,5 +107,23 @@ class FrequencyStringConverterTest {
     fun convertStressFrequencyFormattedStringStressHigh() {
         val text = converter.convertStressFrequencyFormattedString(13.0);
         assertEquals("13.0 Hz\nStress\n\uD83D\uDE21", text)
+    }
+
+    @Test
+    fun convertStressFrequencyColorStress() {
+        val color = converter.convertBackgroundColor(6.99);
+        assertEquals("#FF0000", color)
+    }
+
+    @Test
+    fun convertStressFrequencyColorNoStress() {
+        val color = converter.convertBackgroundColor(12.0);
+        assertEquals("#00FF00", color)
+    }
+
+    @Test
+    fun convertStressFrequencyColorMarginalStress() {
+        val color = converter.convertBackgroundColor(7.99);
+        assertEquals("#FF7F00", color)
     }
 }

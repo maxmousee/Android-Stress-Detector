@@ -1,6 +1,6 @@
 package com.nfsindustries.vsd
 
-class FrequencyStringConverter {
+class FrequencyConverter {
 
     private fun getStressStatus(frequency: Double): StressStatus{
         if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
@@ -29,6 +29,15 @@ class FrequencyStringConverter {
             StressStatus.STRESS -> return STRESS_STRING
             StressStatus.MARGINAL_STRESS -> return MARGINAL_STRESS_STRING
             else -> return NO_STRESS_STRING
+        }
+    }
+
+    fun convertBackgroundColor(frequency: Double): String {
+        val stressStatus = getStressStatus(frequency)
+        when (stressStatus) {
+            StressStatus.STRESS -> return STRESS_COLOR
+            StressStatus.MARGINAL_STRESS -> return MARGINAL_STRESS_COLOR
+            else -> return NO_STRESS_COLOR
         }
     }
 

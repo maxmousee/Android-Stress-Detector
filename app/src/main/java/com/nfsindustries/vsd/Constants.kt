@@ -13,3 +13,11 @@ const val MARGINAL_STRESS_UPPER_LIMIT = 12.0
 const val STRESS_STRING = "Stress"
 const val NO_STRESS_STRING = "No Stress"
 const val MARGINAL_STRESS_STRING = "Marginal Stress"
+
+/*
+This is really hacky but it makes unit testing easy without mocking Android Resources
+This hack should stay here until there is a better way to unit test it or the number of colours grow up
+ */
+const val STRESS_COLOR = "#FF0000"
+const val NO_STRESS_COLOR = "#00FF00"
+const val MARGINAL_STRESS_COLOR = "#FF7F00"

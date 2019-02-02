@@ -1,8 +1,9 @@
 package com.nfsindustries.vsd
 
-import android.Manifest
+import android.Manifest.permission.RECORD_AUDIO
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -13,15 +14,15 @@ class RealTime : AppCompatActivity() {
 
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
-    private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
+    private var permissions: Array<String> = arrayOf(RECORD_AUDIO)
 
-    private val frequencyStringConverter = FrequencyStringConverter()
+    private val frequencyConverter = FrequencyConverter()
     private val stressFrequency = 10.0
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionToRecordAccepted =
-                if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) { grantResults[0] == PackageManager.PERMISSION_GRANTED }
+                if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) { grantResults[0] == PERMISSION_GRANTED }
                 else { false }
         checkPermissionDenied()
     }
@@ -33,7 +34,7 @@ class RealTime : AppCompatActivity() {
         }
     }
 
-    fun displayPermissionDeniedToast() {
+    private fun displayPermissionDeniedToast() {
         val duration = Toast.LENGTH_LONG
         val toast = Toast.makeText(applicationContext, "Please, allow VSD to record audio. This is required ;)", duration)
         toast.show()
@@ -43,21 +44,14 @@ class RealTime : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_time)
         setTextViewBackgroundColor(stressFrequency)
-        freq_tv.text = frequencyStringConverter.convertStressFrequencyFormattedString(stressFrequency)
+        freq_tv.text = frequencyConverter.convertStressFrequencyFormattedString(stressFrequency)
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
         startListening()
     }
 
-    fun setTextViewBackgroundColor(frequency: Double) {
-        if(frequency < MARGINAL_STRESS_LOWER_LIMIT || frequency >= STRESS_UPPER_LIMIT) {
-            freq_tv.setBackgroundColor(resources.getColor(R.color.colorStress))
-        } else if (frequency >= MARGINAL_STRESS_LOWER_LIMIT && frequency < STRESS_LOWER_LIMIT) {
-            freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
-        } else if (frequency > MARGINAL_STRESS_UPPER_LIMIT && frequency < STRESS_UPPER_LIMIT) {
-            freq_tv.setBackgroundColor(resources.getColor(R.color.colorMarginalStress))
-        } else {
-            freq_tv.setBackgroundColor(resources.getColor(R.color.colorNoStress))
-        }
+    private fun setTextViewBackgroundColor(frequency: Double) {
+        val color = Color.parseColor(frequencyConverter.convertBackgroundColor(frequency))
+        freq_tv.setBackgroundColor(color)
     }
 
     private fun startListening() {
