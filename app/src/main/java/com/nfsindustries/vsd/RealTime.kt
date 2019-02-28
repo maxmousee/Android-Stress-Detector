@@ -54,6 +54,11 @@ class RealTime : AppCompatActivity() {
         freq_tv.setBackgroundColor(color)
     }
 
+    public fun setTextViewTextAndColor(formattedString: String, colorString: String) {
+        freq_tv.setBackgroundColor(Color.parseColor(colorString))
+        freq_tv.text = formattedString
+    }
+
     private fun startListening() {
         if(permissionToRecordAccepted) {
             Intent(this, AudioProcessorService::class.java).also { intent ->
