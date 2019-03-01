@@ -7,7 +7,7 @@ import android.os.IBinder
 import java.util.concurrent.Executors
 
 const val SAMPLE_RATE = 8000
-const val CHANNELS = AudioFormat.CHANNEL_IN_MONO
+const val CHANNELS = AudioFormat.CHANNEL_IN_DEFAULT
 const val AUDIO_ENCODING = AudioFormat.ENCODING_PCM_FLOAT
 
 class AudioProcessorService : Service() {

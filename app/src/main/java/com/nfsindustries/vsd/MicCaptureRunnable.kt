@@ -14,10 +14,10 @@ import android.os.Process.*
 class MicCaptureRunnable : Runnable {
 
     private val frequencyStringConverter = FrequencyConverter()
-    private var audioDoubleArray = DoubleArray(SAMPLE_RATE)
-    private var audioData = FloatArray(SAMPLE_RATE)
     private val minSizeInBytes = getMinBufferSize(SAMPLE_RATE, CHANNELS, AUDIO_ENCODING)
     private val recorder = AudioRecord(MIC, SAMPLE_RATE, CHANNELS, AUDIO_ENCODING, SAMPLE_RATE)
+    private var audioDoubleArray = DoubleArray(SAMPLE_RATE)
+    private var audioData = FloatArray(SAMPLE_RATE)
     private val vsd = VSDJNI()
     private var stressFrequency = 0.0
     private var mHandler: Handler? = null
