@@ -6,9 +6,9 @@ import android.media.AudioFormat
 import android.os.IBinder
 import java.util.concurrent.Executors
 
-const val RECORDER_SAMPLE_RATE = 8000
-const val RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO
-const val RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_FLOAT
+const val SAMPLE_RATE = 8000
+const val CHANNELS = AudioFormat.CHANNEL_IN_MONO
+const val AUDIO_ENCODING = AudioFormat.ENCODING_PCM_FLOAT
 
 class AudioProcessorService : Service() {
 
@@ -22,6 +22,7 @@ class AudioProcessorService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        micCaptureRunnable.setContext(this.applicationContext)
         executorService.submit(micCaptureRunnable)
     }
 
