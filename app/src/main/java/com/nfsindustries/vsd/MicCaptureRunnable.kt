@@ -1,15 +1,13 @@
 package com.nfsindustries.vsd
 
 import android.content.Context
-import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.AudioRecord.*
-import android.media.MediaRecorder.AudioSource.MIC
+import android.media.MediaRecorder.AudioSource.*
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.os.Process.*
-
 
 class MicCaptureRunnable : Runnable {
 
@@ -26,24 +24,26 @@ class MicCaptureRunnable : Runnable {
 
     private fun readAudioBuffer() {
         // gets the voice output from microphone to byte format
-        recorder.read(audioData, 0, SAMPLE_RATE, READ_BLOCKING)
+        val countRead = recorder.read(audioData, 0, SAMPLE_RATE, READ_BLOCKING)
         var index = 0
         for (value in audioData) {
             audioDoubleArray[index] = value.toDouble()
             index++
-            audioStr += " %.3f".format(value)
+            audioStr += " %.2f".format(value)
         }
         stressFrequency = vsd.processAudio(audioDoubleArray)
         val formattedString = frequencyStringConverter.convertStressFrequencyFormattedString(stressFrequency)
         val color = frequencyStringConverter.convertBackgroundColor(stressFrequency)
-        updateUI(color, formattedString)
+        updateUI(formattedString, color)
+        Log.d(LOG_TAG, "Floats Read $countRead")
         Log.d(LOG_TAG, "Data $audioStr")
         audioStr = String()
     }
 
-    private fun updateUI(color:String, formattedString: String) {
+    private fun updateUI(formattedString: String, color:String) {
         mHandler = Handler(Looper.getMainLooper())
         Log.d(LOG_TAG, "$stressFrequency Hz")
+        if (stressFrequency > 0) (AppConstants.activity as RealTime).setTextViewTextAndColor(formattedString, color)
     }
 
     fun setContext(context: Context) {

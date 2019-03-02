@@ -17,7 +17,7 @@ class RealTime : AppCompatActivity() {
     private var permissions: Array<String> = arrayOf(RECORD_AUDIO)
 
     private val frequencyConverter = FrequencyConverter()
-    private val stressFrequency = 10.0
+    private val stressFrequency = 0.0
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -44,7 +44,8 @@ class RealTime : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_real_time)
         setTextViewBackgroundColor(stressFrequency)
-        freq_tv.text = frequencyConverter.convertStressFrequencyFormattedString(stressFrequency)
+        freq_tv.text = getString(R.string.loading_text)
+        freq_tv.setBackgroundColor(Color.GRAY)
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
         startListening()
     }
@@ -69,13 +70,20 @@ class RealTime : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        AppConstants.activity = this
         startListening()
     }
 
     override fun onPause() {
         super.onPause()
+        AppConstants.activity = null
         Intent(this, AudioProcessorService::class.java).also { intent ->
             stopService(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppConstants.activity = null
     }
 }
