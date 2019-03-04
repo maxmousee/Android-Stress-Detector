@@ -24,26 +24,23 @@ class MicCaptureRunnable : Runnable {
 
     private fun readAudioBuffer() {
         // gets the voice output from microphone to byte format
-        val countRead = recorder.read(audioData, 0, SAMPLE_RATE, READ_BLOCKING)
+        val status = recorder.read(audioData, 0, SAMPLE_RATE, READ_BLOCKING)
         var index = 0
         for (value in audioData) {
             audioDoubleArray[index] = value.toDouble()
             index++
-            audioStr += " %.2f".format(value)
+            audioStr += " %.4f".format(value)
         }
         stressFrequency = vsd.processAudio(audioDoubleArray)
-        val formattedString = frequencyStringConverter.convertStressFrequencyFormattedString(stressFrequency)
-        val color = frequencyStringConverter.convertBackgroundColor(stressFrequency)
-        updateUI(formattedString, color)
-        Log.d(LOG_TAG, "Floats Read $countRead")
+        Log.d(LOG_TAG, "Read Status: $status")
         Log.d(LOG_TAG, "Data $audioStr")
+        Log.d(LOG_TAG, "$stressFrequency Hz")
         audioStr = String()
     }
 
     private fun updateUI(formattedString: String, color:String) {
         mHandler = Handler(Looper.getMainLooper())
-        Log.d(LOG_TAG, "$stressFrequency Hz")
-        if (stressFrequency > 0) (AppConstants.activity as RealTime).setTextViewTextAndColor(formattedString, color)
+        (AppConstants.activity as RealTime).setTextViewTextAndColor(formattedString, color)
     }
 
     fun setContext(context: Context) {
@@ -68,6 +65,9 @@ class MicCaptureRunnable : Runnable {
         setThreadPriority(THREAD_PRIORITY_AUDIO)
         while (true) {
             readAudioBuffer()
+            val formattedString = frequencyStringConverter.convertStressFrequencyFormattedString(stressFrequency)
+            val color = frequencyStringConverter.convertBackgroundColor(stressFrequency)
+//            updateUI(formattedString, color)
         }
     }
 }
