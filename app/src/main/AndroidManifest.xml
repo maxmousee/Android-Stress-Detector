@@ -3,6 +3,7 @@
           package="com.nfsindustries.vsd">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
             android:allowBackup="true"
@@ -11,11 +12,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <service android:name=".AudioProcessorService" />
-        <activity android:name=".RealTime">
+        <service
+                android:name=".AudioProcessorService"
+                android:description="@string/svc_descr"/>
+        <activity
+                android:name=".RealTime"
+                android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

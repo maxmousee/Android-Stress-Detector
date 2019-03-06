@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">VSD</string>
+    <string name="svc_descr">Audio capture service</string>
+    <string name="notification_title">Voice Stress Detector</string>
+    <string name="notification_name">Voice Stress Detector Service</string>
+    <string name="notification_message">Voice Stress Detector is running&#8230;</string>
     <string name="loading_text">Loading&#8230;</string>
 </resources>

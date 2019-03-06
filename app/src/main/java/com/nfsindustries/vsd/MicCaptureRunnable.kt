@@ -13,7 +13,7 @@ class MicCaptureRunnable : Runnable {
 
     private val frequencyStringConverter = FrequencyConverter()
     private val minSizeInBytes = getMinBufferSize(SAMPLE_RATE, CHANNELS, AUDIO_ENCODING)
-    private val recorder = AudioRecord(MIC, SAMPLE_RATE, CHANNELS, AUDIO_ENCODING, SAMPLE_RATE)
+    private val recorder = AudioRecord(MIC, SAMPLE_RATE, CHANNELS, AUDIO_ENCODING, 8192)
     private var audioDoubleArray = DoubleArray(SAMPLE_RATE)
     private var audioData = FloatArray(SAMPLE_RATE)
     private val vsd = VSDJNI()

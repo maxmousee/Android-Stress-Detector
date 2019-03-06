@@ -2,7 +2,11 @@ package com.nfsindustries.vsd
 
 const val LOG_TAG = "VSD"
 
-const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+const val REQUEST_PERMISSION = 200
+
+const val ONGOING_NOTIFICATION_ID = 23
+
+const val NOTIF_CHANNEL_ID = "VSD_NOTIF_CHANNEL"
 
 const val STRESS_LOWER_LIMIT = 8.0
 const val STRESS_UPPER_LIMIT = 13.0

@@ -1,11 +1,14 @@
 package com.nfsindustries.vsd
 
+import android.Manifest.permission.FOREGROUND_SERVICE
 import android.Manifest.permission.RECORD_AUDIO
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Color
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_real_time.*
@@ -22,7 +25,7 @@ class RealTime : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionToRecordAccepted =
-                if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) { grantResults[0] == PERMISSION_GRANTED }
+                if (requestCode == REQUEST_PERMISSION) { grantResults[0] == PERMISSION_GRANTED }
                 else { false }
         checkPermissionDenied()
     }
@@ -46,8 +49,7 @@ class RealTime : AppCompatActivity() {
         setTextViewBackgroundColor(stressFrequency)
         freq_tv.text = getString(R.string.loading_text)
         freq_tv.setBackgroundColor(Color.GRAY)
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
-        startListening()
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSION)
     }
 
     private fun setTextViewBackgroundColor(frequency: Double) {
@@ -63,7 +65,7 @@ class RealTime : AppCompatActivity() {
     private fun startListening() {
         if(permissionToRecordAccepted) {
             Intent(this, AudioProcessorService::class.java).also { intent ->
-                startService(intent)
+                startForegroundService(intent)
             }
         }
     }
